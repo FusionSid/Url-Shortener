@@ -15,7 +15,7 @@ def gen_pass():
                          'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
                          'Z']
 
-    SYMBOLS = ['#', '=', '?', '.']
+    SYMBOLS = ['#', '=', '_', '.', '-']
 
     COMBINED_LIST = DIGITS + UPCASE_CHARACTERS + LOCASE_CHARACTERS + SYMBOLS
 

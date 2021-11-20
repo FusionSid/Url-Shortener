@@ -3,7 +3,7 @@ from flask.templating import render_template
 import json
 import pg
 
-HOMEURL = "192.168.1.68/8080"
+HOMEURL = "https://url-shortener.fusionsid.repl.co"
 app = Flask("Url-Shortener")
 
 @app.route('/', methods=['POST', 'GET'])
@@ -52,11 +52,13 @@ def urlshort(code):
         
         if rurl == False:
             return "Invalid Code"
+
+        return redirect(rurl)
         
     else:
         return "Invalid Code"
 
-    return redirect(rurl)
+    
 
 
 # Run
