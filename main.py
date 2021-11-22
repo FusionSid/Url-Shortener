@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, jsonify
 from flask.templating import render_template
 import json
 import pg
@@ -17,7 +17,7 @@ def home():
                 http = False
 
         if http == False:
-            return render_template("index.html", url=f"Url create failed! Url must contain http:// or https://")
+            url = f"http://{url}"
         with open('urls.json') as f:
             data = json.load(f)
         codes = []
@@ -38,9 +38,9 @@ def home():
         return render_template("index.html")
 
 
-@app.route('/<code>')
+@app.route('/<code>/')
 def urlshort(code):
-    if len(code) == 5:
+    if len(code) == 4:
         with open('urls.json') as f:
             data = json.load(f)
 
@@ -58,7 +58,39 @@ def urlshort(code):
     else:
         return "Invalid Code"
 
-    
+
+@app.route("/api/", methods=['POST', 'GET'])
+def api():
+    if request.method == "POST":
+      url = request.form['url']
+      for i in ['http://', 'https://']:
+          if i in url:
+              http = True
+          else:
+              http = False
+
+      if http == False:
+          url = f"http://{url}"
+      with open('urls.json') as f:
+          data = json.load(f)
+      codes = []
+      for i in data:
+          codes.append(i["code"])
+      while True:
+          code = pg.gen_pass()
+          if code in codes:
+              pass
+          else:
+              break
+      newurl = {"code":code, "url":url}
+      data.append(newurl)
+      with open('urls.json', 'w') as f:
+          json.dump(data, f, indent=4)
+      result = {'url':f"{HOMEURL}/{code}"}
+      print(result)
+      return jsonify(result)
+
+
 
 
 # Run
