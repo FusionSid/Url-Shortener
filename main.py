@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, jsonify
+from flask import Flask, redirect, request, jsonify, Response
 from flask.templating import render_template
 import json
 import pg
@@ -86,9 +86,9 @@ def api():
       data.append(newurl)
       with open('urls.json', 'w') as f:
           json.dump(data, f, indent=4)
-      result = {'url':f"{HOMEURL}/{code}"}
+      result = f"{HOMEURL}/{code}"
       print(result)
-      return jsonify(result)
+      return result
 
 
 
