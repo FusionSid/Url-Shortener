@@ -31,10 +31,12 @@ print(url)
 ```
 import 'package:http/http.dart';
 
-String short = "fusionsid.xyz"
-const url = "https://url-shortener.fusionsid.repl.co/api/";
-final response = await post(Uri.parse(url), body: {"url": short});
-String responseurl = response.body;
+Future postData(String short) async {
+  const url = "https://url-shortener.fusionsid.repl.co/api/";
+  final response = await post(Uri.parse(url), body: {"url": short});
+  String responseurl = response.body;
+  print(responseurl);
+}
 
-print(responseurl)
+postData("fusionsid.xyz");
 ```
