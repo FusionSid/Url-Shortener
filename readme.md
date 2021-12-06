@@ -17,12 +17,14 @@ You can also send post requests to the app and it will send back a url.
 ```
 import requests
 
-data = {'url':'fusionsid.xyz'}
-url = "https://url-shortener.fusionsid.repl.co/api/"
-response = requests.post(url, data=data)
-url = response.content.decode()
-
-print(url)
+def post_data(short : str):
+  data = {'url':short}
+  url = "https://url-shortener.fusionsid.repl.co/api/"
+  response = requests.post(url, data=data)
+  url = response.content.decode()
+  print(url)
+ 
+post_data("fusionsid.xyz)
 ```
 
 
