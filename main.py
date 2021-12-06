@@ -33,7 +33,7 @@ def home():
         data.append(newurl)
         with open('urls.json', 'w') as f:
             json.dump(data, f, indent=4)
-        return render_template("index.html", url=f"Url Created!     |     URL: --> {HOMEURL}/{code} <--")
+        return render_template("index.html", url=f"{HOMEURL}/{code}", urlstatus="URL")
     else:
         return render_template("index.html")
 
